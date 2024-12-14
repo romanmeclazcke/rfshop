@@ -1,12 +1,14 @@
 package org.example.rfshop.User.Infrastructure.Controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.rfshop.User.Application.CreateUserUseCase.CreateUserUseCase;
 import org.example.rfshop.User.domain.Dto.Request.CreateUserDto;
+import org.example.rfshop.User.domain.Dto.Response.UserResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -18,9 +20,9 @@ public class UserController {
         this.createUserUseCase = createUserUseCase;
     }
 
-    @GetMapping("/new")
-    public void get(){
-        this.createUserUseCase.createUser(new CreateUserDto());
+    @PostMapping()
+    public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
+        return new ResponseEntity<>(this.createUserUseCase.createUser(createUserDto), HttpStatus.CREATED);
     }
 
 }

@@ -11,3 +11,8 @@ spring:
 
   config:
     import: optional:file:.env[.properties]
+
+  logging:
+    level:
+      org.springframework: DEBUG
+      org.example.rfshop: DEBUG

@@ -1,5 +1,6 @@
 package org.example.rfshop.User.Application.CreateUserUseCase;
 
+import org.example.rfshop.User.Infrastructure.Exception.EmailAlreadyInUse;
 import org.example.rfshop.User.Infrastructure.Mapper.UserMapper;
 import org.example.rfshop.User.Infrastructure.Model.User;
 import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
@@ -10,12 +11,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-@Service
-public class CreateUserUseCaseImpl implements CreateUserUseCase{
 
-    private UserRepository userRepository;
-    private UserMapper userMapper;
-    private PasswordEncoder passwordEncoder;
+@Service
+public class CreateUserUseCaseImpl implements CreateUserUseCase {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public CreateUserUseCaseImpl(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
@@ -26,8 +28,11 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase{
 
     @Override
     public UserResponseDto createUser(CreateUserDto createUserDto) {
+        this.userRepository.findUserByEmail(createUserDto.getEmail()).ifPresent(user -> {throw new EmailAlreadyInUse("Email already in user :" + user.getEmail());});
         User user = userMapper.toEntity(createUserDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userMapper.toDto(userRepository.save(user));
+        User savedUser = userRepository.save(user);
+        return userMapper.toDto(savedUser);
     }
+
 }

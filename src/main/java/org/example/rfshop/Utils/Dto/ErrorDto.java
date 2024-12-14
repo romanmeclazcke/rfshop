@@ -6,10 +6,10 @@ import org.example.rfshop.Utils.ControllerAdvice.ErrorCodes;
 
 import java.time.LocalDateTime;
 
+@Builder(toBuilder = true)
 @Data
-@Builder
 public class ErrorDto {
     private String message;
-    private Enum<ErrorCodes> errorCode;
+    private ErrorCodes errorCode;
     private LocalDateTime timestamp;
 }

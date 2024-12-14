@@ -5,7 +5,7 @@ import org.example.rfshop.User.domain.Dto.Request.CreateUserDto;
 import org.example.rfshop.User.domain.Dto.Response.UserResponseDto;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
 
     UserResponseDto toDto(User user);
