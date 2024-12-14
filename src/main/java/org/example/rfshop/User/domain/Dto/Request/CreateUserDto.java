@@ -24,4 +24,7 @@ public class CreateUserDto {
     @NotEmpty(message = "The password cannot be empty")
     @Size(min = 6, message = "The password must be at least 6 characters long")
     private String password;
+
+    @NotNull(message = "the rol cannot be null")
+    private Long rolId;
 }

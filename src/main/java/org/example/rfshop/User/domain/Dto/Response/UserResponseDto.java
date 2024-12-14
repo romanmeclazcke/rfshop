@@ -3,6 +3,7 @@ package org.example.rfshop.User.domain.Dto.Response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.rfshop.User.Infrastructure.Model.Role;
 
 @Data
 @NoArgsConstructor
@@ -13,4 +14,5 @@ public class UserResponseDto {
     private String userName;
     private String lastName;
     private String password;
+    private Role role;
 }
