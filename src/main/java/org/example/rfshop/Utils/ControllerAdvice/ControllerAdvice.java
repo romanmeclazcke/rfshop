@@ -1,5 +1,6 @@
 package org.example.rfshop.Utils.ControllerAdvice;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.example.rfshop.User.Infrastructure.Exception.EmailAlreadyInUse;
 import org.example.rfshop.User.Infrastructure.Exception.RolNotFound;
@@ -24,6 +25,15 @@ public class ControllerAdvice {
                 "An unexpected error occurred. Please contact support.",
                 ErrorCodes.GENERIC_ERROR,
                 HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleEntityNotFoundException(EntityNotFoundException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.ENTITY_NOT_FOUND_ERROR,
+                HttpStatus.BAD_REQUEST
         );
     }
 
