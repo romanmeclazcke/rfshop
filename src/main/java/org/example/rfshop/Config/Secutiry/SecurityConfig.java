@@ -1,4 +1,4 @@
-package org.example.rfshop.Config;
+package org.example.rfshop.Config.Secutiry;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

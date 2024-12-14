@@ -1,4 +1,4 @@
-package org.example.rfshop.Config;
+package org.example.rfshop.Config.Web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
