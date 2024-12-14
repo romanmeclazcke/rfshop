@@ -34,11 +34,9 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     @Override
     public UserResponseDto createUser(CreateUserDto createUserDto) {
-        System.out.println(createUserDto);
         this.userRepository.findUserByEmail(createUserDto.getEmail()).ifPresent(user -> {throw new EmailAlreadyInUse("Email already in user :" + user.getEmail());});
         User user = userMapper.toEntity(createUserDto);
         Role role  = this.roleRepository.findById(createUserDto.getRolId()).orElseThrow(()-> new RolNotFound("Rol with id: "+ createUserDto.getRolId() +" not found"));
-        System.out.println(role);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(role);
         User savedUser = userRepository.save(user);
