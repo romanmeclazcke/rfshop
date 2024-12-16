@@ -37,8 +37,8 @@ public class BarberShopController {
     }
 
 
-    @PatchMapping("")
-    public ResponseEntity<?> updateBarberShop(@RequestBody @Valid UpdateBarberShopDto updateBarberShopDto) {
-        return new ResponseEntity<>(this.updateBarberShopUseCase.updateBarberShop(updateBarberShopDto), HttpStatus.OK);
+    @PatchMapping("/{barberId}")
+    public ResponseEntity<?> updateBarberShop(@PathVariable Long barberId,@RequestBody @Valid UpdateBarberShopDto updateBarberShopDto) {
+        return new ResponseEntity<>(this.updateBarberShopUseCase.updateBarberShop(barberId,updateBarberShopDto), HttpStatus.OK);
     }
 }
