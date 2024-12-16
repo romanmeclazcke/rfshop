@@ -1,12 +1,10 @@
 package org.example.rfshop.User.Infrastructure.Controller;
 
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.example.rfshop.User.Application.CreateUserUseCase.CreateUserUseCase;
 import org.example.rfshop.User.Application.UpdateUserUseCase.UpdateUserUseCase;
 import org.example.rfshop.User.domain.Dto.Request.CreateUserDto;
 import org.example.rfshop.User.domain.Dto.Request.UpdateUserDto;
-import org.example.rfshop.User.domain.Dto.Response.UserResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
