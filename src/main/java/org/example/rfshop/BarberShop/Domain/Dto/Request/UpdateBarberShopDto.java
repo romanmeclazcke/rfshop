@@ -16,5 +16,7 @@ public class UpdateBarberShopDto {
 
     private Integer streetNumber;
 
+    private String phone;
+
     private Integer chair;
 }
