@@ -25,7 +25,7 @@ public class UpdateBarberShopUseCaseImpl  implements UpdateBarberShopUseCase {
     }
 
     @Override
-    public BarberShopResponseDto updateBarberShop(Long id,UpdateBarberShopDto updateBarberShopDto) {
+    public BarberShopResponseDto execute(Long id,UpdateBarberShopDto updateBarberShopDto) {
         BarberShop barberShop = this.barberShopRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("BarberShop with id " +id + " not found"));
 
         Optional.ofNullable(updateBarberShopDto.getName()).ifPresent(barberShop::setName);

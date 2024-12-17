@@ -24,7 +24,7 @@ public class UpdateUserUseCaseImpl  implements UpdateUserUseCase{
     }
 
     @Override
-    public UserResponseDto updateUser(Long userId, UpdateUserDto updateUserDto) {
+    public UserResponseDto execute(Long userId, UpdateUserDto updateUserDto) {
         User user  = this.userRepository.findById(userId).orElseThrow(()-> new EntityNotFoundException("User with id "+ userId + " not found"));
 
         Optional.ofNullable(updateUserDto.getUserName()).ifPresent(user::setUserName);

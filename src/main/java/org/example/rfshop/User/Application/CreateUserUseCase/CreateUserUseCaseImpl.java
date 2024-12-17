@@ -33,7 +33,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
 
     @Override
-    public UserResponseDto createUser(CreateUserDto createUserDto) {
+    public UserResponseDto execute(CreateUserDto createUserDto) {
         this.userRepository.findUserByEmail(createUserDto.getEmail()).ifPresent(user -> {throw new EmailAlreadyInUse("Email already in user :" + user.getEmail());});
         User user = userMapper.toEntity(createUserDto);
         Role role  = this.roleRepository.findById(createUserDto.getRolId()).orElseThrow(()-> new RolNotFound("Rol with id: "+ createUserDto.getRolId() +" not found"));

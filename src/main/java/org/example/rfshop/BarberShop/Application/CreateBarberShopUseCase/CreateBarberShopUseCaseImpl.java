@@ -2,7 +2,6 @@ package org.example.rfshop.BarberShop.Application.CreateBarberShopUseCase;
 
 
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.EnumType;
 import org.example.rfshop.BarberShop.Domain.Dto.Request.CreateBarberShopDto;
 import org.example.rfshop.BarberShop.Domain.Dto.Response.BarberShopResponseDto;
 import org.example.rfshop.BarberShop.Infrastructure.Exception.InvalidRole;
@@ -10,11 +9,9 @@ import org.example.rfshop.BarberShop.Infrastructure.Mapper.BarberShopMapper;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;
 import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
-import org.example.rfshop.User.domain.Dto.Role.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
 
 @Service
 public class CreateBarberShopUseCaseImpl implements CreateBarberShopUseCase {
@@ -32,7 +29,7 @@ public class CreateBarberShopUseCaseImpl implements CreateBarberShopUseCase {
 
 
     @Override
-    public BarberShopResponseDto createBarberShop(Long ownerId, CreateBarberShopDto createBarberShopDto) {
+    public BarberShopResponseDto execute(Long ownerId, CreateBarberShopDto createBarberShopDto) {
         return this.userRepository.findById(ownerId)
                 .map(user -> {
                     System.out.println(user.getRole().getName());

@@ -4,5 +4,5 @@ import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 
 public interface DeleteBarberShop {
 
-    void deleteBarberShop(Long id);
+    void execute(Long id);
 }
