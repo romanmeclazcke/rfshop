@@ -20,6 +20,6 @@ public class GetAllBarberShopUseCasesImpl implements GetAllBarberShopUseCase {
 
     @Override
     public List<BarberShop> getAllBarberShops() {
-      return this.barberShopRepository.findAll();
+        return this.barberShopRepository.findAll();
     }
 }
