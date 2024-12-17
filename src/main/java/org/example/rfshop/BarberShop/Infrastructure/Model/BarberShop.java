@@ -34,7 +34,7 @@ public class BarberShop {
     @Column(nullable = false)
     private Integer chair; //number of avalible chairs
 
-    @OneToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private User owner;
 
