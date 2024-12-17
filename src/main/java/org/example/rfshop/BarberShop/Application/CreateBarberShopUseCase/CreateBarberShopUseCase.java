@@ -4,5 +4,5 @@ import org.example.rfshop.BarberShop.Domain.Dto.Request.CreateBarberShopDto;
 import org.example.rfshop.BarberShop.Domain.Dto.Response.BarberShopResponseDto;
 
 public interface CreateBarberShopUseCase {
-    BarberShopResponseDto createBarberShop(CreateBarberShopDto createBarberShopDto);
+    BarberShopResponseDto createBarberShop(Long ownerId,CreateBarberShopDto createBarberShopDto);
 }

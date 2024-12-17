@@ -16,14 +16,28 @@ public class BarberShop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
 
     private String city;
 
+    @Column(nullable = false)
+
     private String street;
 
+    @Column(nullable = false)
     private String number;
 
+    @Column(nullable = true)
+    private String phone;
+
+    @Column(nullable = false)
+    private Integer chair; //number of avalible chairs
+
     @OneToOne()
+    @JoinColumn(nullable = false)
     private User owner;
+
 }
