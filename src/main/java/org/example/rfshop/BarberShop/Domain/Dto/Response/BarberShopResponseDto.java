@@ -13,5 +13,6 @@ public class BarberShopResponseDto {
     private String city;
     private String street;
     private Integer streetNumber;
+    private String phone;
     private Integer chair;
 }

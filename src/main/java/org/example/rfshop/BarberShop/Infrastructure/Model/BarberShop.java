@@ -20,15 +20,13 @@ public class BarberShop {
     private String name;
 
     @Column(nullable = false)
-
     private String city;
 
     @Column(nullable = false)
-
     private String street;
 
     @Column(nullable = false)
-    private String number;
+    private Integer streetNumber;
 
     @Column(nullable = true)
     private String phone;

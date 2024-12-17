@@ -5,7 +5,7 @@ import org.example.rfshop.BarberShop.Domain.Dto.Response.BarberShopResponseDto;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface BarberShopMapper {
 
     BarberShop toEntity(CreateBarberShopDto createBarberShopDto);

@@ -1,6 +1,8 @@
 package org.example.rfshop.BarberShop.Domain.Dto.Request;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +21,12 @@ public class CreateBarberShopDto {
     @NotEmpty(message = "The street cannot be empty")
     private String street;
 
-    @NotEmpty(message = "The street number cannot be empty")
+    @NotNull(message = "the rol cannot be null")
     private Integer streetNumber;
 
-    @NotEmpty(message = "the number of chair cannot be empty")
+    private String phone;
+
+    @NotNull(message = "The number of chairs cannot be null")
     private Integer chair;
+
 }

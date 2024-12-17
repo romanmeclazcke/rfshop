@@ -31,9 +31,10 @@ public class BarberShopController {
     public ResponseEntity<?> getAllBarberShop() {
         return new ResponseEntity<>(this.getAllBarberShopUseCase.getAllBarberShops(), HttpStatus.OK);
     }
-    @PostMapping("")
-    public ResponseEntity<?> createBarberShop(@RequestBody @Valid CreateBarberShopDto createBarberShopDto) {
-        return new ResponseEntity<>(this.createBarberShopUseCase.createBarberShop(createBarberShopDto), HttpStatus.CREATED);
+
+    @PostMapping("/owner/{ownerId}")
+    public ResponseEntity<?> createBarberShop(@PathVariable Long ownerId,@RequestBody @Valid CreateBarberShopDto createBarberShopDto) {
+        return new ResponseEntity<>(this.createBarberShopUseCase.createBarberShop(ownerId,createBarberShopDto), HttpStatus.CREATED);
     }
 
 
