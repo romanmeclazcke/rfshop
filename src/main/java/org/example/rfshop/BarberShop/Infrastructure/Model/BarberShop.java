@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.rfshop.Court.Infrastructure.Model.Court;
 import org.example.rfshop.User.Infrastructure.Model.User;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -37,5 +40,8 @@ public class BarberShop {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private User owner;
+
+    @OneToMany(mappedBy = "barberShop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Court> courts;
 
 }
