@@ -17,8 +17,8 @@ public class DeleteBarberShopImpl implements DeleteBarberShop {
     }
 
     @Override
-    public void execute(Long id) {
-        this.barberShopRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Barber with id " + id + " not found"));
-        this.barberShopRepository.deleteById(id);
+    public void execute(Long barberId) {
+        this.barberShopRepository.findById(barberId).orElseThrow(()-> new EntityNotFoundException("Barber with id " + barberId + " not found"));
+        this.barberShopRepository.deleteById(barberId);
     }
 }

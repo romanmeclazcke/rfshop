@@ -1,8 +1,7 @@
 package org.example.rfshop.BarberShop.Application.DeleteBarberShopUseCase;
 
-import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 
 public interface DeleteBarberShop {
 
-    void execute(Long id);
+    void execute(Long barberId);
 }
