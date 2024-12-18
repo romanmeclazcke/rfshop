@@ -4,5 +4,5 @@ import org.example.rfshop.User.domain.Dto.Request.UpdateUserDto;
 import org.example.rfshop.User.domain.Dto.Response.UserResponseDto;
 
 public interface UpdateUserUseCase {
-    UserResponseDto updateUser(Long userId, UpdateUserDto updateUserDto);
+    UserResponseDto execute(Long userId, UpdateUserDto updateUserDto);
 }
