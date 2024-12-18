@@ -25,11 +25,11 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<?> createUser(@RequestBody @Valid CreateUserDto createUserDto) {
-        return new ResponseEntity<>(this.createUserUseCase.createUser(createUserDto), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.createUserUseCase.execute(createUserDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable Long userId,@RequestBody @Valid UpdateUserDto updateUserDto) {
-        return new ResponseEntity<>(this.updateUserUseCase.updateUser(userId,updateUserDto), HttpStatus.OK);
+        return new ResponseEntity<>(this.updateUserUseCase.execute(userId,updateUserDto), HttpStatus.OK);
     }
 }
