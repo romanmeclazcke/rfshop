@@ -32,7 +32,6 @@ public class CreateBarberShopUseCaseImpl implements CreateBarberShopUseCase {
     public BarberShopResponseDto execute(Long ownerId, CreateBarberShopDto createBarberShopDto) {
         return this.userRepository.findById(ownerId)
                 .map(user -> {
-                    System.out.println(user.getRole().getName());
                     if (!"BARBER".equals(user.getRole().getName())) {
                         throw new InvalidRole("If the user doesn't have role Barber, they cannot create a BarberShop");
                     }

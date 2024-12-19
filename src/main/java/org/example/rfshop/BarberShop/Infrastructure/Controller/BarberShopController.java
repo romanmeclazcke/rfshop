@@ -40,7 +40,7 @@ public class BarberShopController {
     }
 
     @GetMapping("/{barberShopId}")
-    public ResponseEntity<?> getAllBarberShop(@PathVariable Long barberShopId) {
+    public ResponseEntity<?> getBarberShopById(@PathVariable Long barberShopId) {
         return new ResponseEntity<>(this.getBarberShopByIdUseCase.execute(barberShopId), HttpStatus.OK);
     }
 
