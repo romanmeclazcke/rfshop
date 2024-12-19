@@ -22,6 +22,21 @@ public class Post {
 
     private Date createdAt;
 
+    private Date updateAt;
+
     @ManyToOne
     private BarberShop barberShop;
+
+
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+        updateAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updateAt = new Date();
+    }
 }
