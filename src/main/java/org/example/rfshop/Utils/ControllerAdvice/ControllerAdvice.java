@@ -3,6 +3,7 @@ package org.example.rfshop.Utils.ControllerAdvice;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.example.rfshop.BarberShop.Infrastructure.Exception.InvalidRole;
+import org.example.rfshop.Post.Infrastructure.Exception.FailToUploadImage;
 import org.example.rfshop.User.Infrastructure.Exception.EmailAlreadyInUse;
 import org.example.rfshop.User.Infrastructure.Exception.RolNotFound;
 import org.example.rfshop.Utils.Dto.ErrorDto;
@@ -91,6 +92,15 @@ public class ControllerAdvice {
                 e.getMessage(),
                 ErrorCodes.BAD_REQUEST_ERROR,
                 HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(FailToUploadImage.class)
+    public ResponseEntity<ErrorDto> handleFailToUploadImage(FailToUploadImage e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.INTERNAL_SERVER_ERROR,
+                HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
 
