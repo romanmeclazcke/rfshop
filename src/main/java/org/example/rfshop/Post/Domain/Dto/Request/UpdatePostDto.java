@@ -1,18 +1,14 @@
 package org.example.rfshop.Post.Domain.Dto.Request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdatePostDto {
-
-    @NotBlank(message = "URL image cannot be blank")
-    private String urlImage;
-
-    @NotBlank(message = "Description cannot be blank")
+    private MultipartFile image;
     private String description;
 }

@@ -6,7 +6,7 @@ import org.example.rfshop.Post.Infrastructure.Model.Post;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PostMaper {
+public interface PostMapper {
 
     Post toEntity(CreatePostDto createPostDto);
     PostResponseDto toDto(Post post);

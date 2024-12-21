@@ -2,12 +2,14 @@ package org.example.rfshop.Post.Infrastructure.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 
 import java.util.Date;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
