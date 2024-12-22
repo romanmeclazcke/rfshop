@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Map;
-
 @Service
 public class UploadImageUseCaseImpl implements UploadImageUseCase {
 
@@ -18,11 +17,10 @@ public class UploadImageUseCaseImpl implements UploadImageUseCase {
         this.cloudinary = cloudinary;
     }
 
-
     @Override
     public ImageResponseDto execute(MultipartFile file, String folder) {
         try {
-            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(file, com.cloudinary.utils.ObjectUtils.asMap("folder", folder));
+            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(file.getBytes(), com.cloudinary.utils.ObjectUtils.asMap("folder", folder));
             return this.mapToImageResponseDto(uploadResult);
         } catch (IOException e) {
             throw new FailToUploadImage("Fail to upload image");
@@ -37,4 +35,3 @@ public class UploadImageUseCaseImpl implements UploadImageUseCase {
                 .build();
     }
 }
-
