@@ -20,7 +20,7 @@ public class Post {
 
     private String description;
 
-    private String urlImage;
+    private String secureUrl;
 
     private Date createdAt;
 
