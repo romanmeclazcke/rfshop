@@ -8,7 +8,6 @@ import org.example.rfshop.Cloudinary.Domain.Enum.FolderEnum;
 import org.example.rfshop.Cloudinary.Domain.Response.ImageResponseDto;
 import org.example.rfshop.Post.Domain.Dto.Request.CreatePostDto;
 import org.example.rfshop.Post.Domain.Dto.Response.PostResponseDto;
-import org.example.rfshop.Post.Infrastructure.Exception.FailToUploadImage;
 import org.example.rfshop.Post.Infrastructure.Mapper.PostMapper;
 import org.example.rfshop.Post.Infrastructure.Model.Post;
 import org.example.rfshop.Post.Infrastructure.Repository.PostRepository;
@@ -33,14 +32,12 @@ public class CreatePostUseCaseImpl implements CreatePostUseCase {
 
     public PostResponseDto execute(Long barberId, CreatePostDto createPostDto) {
         BarberShop barberShop = barberShopRepository.findById(barberId).orElseThrow(() -> new EntityNotFoundException("Barber with id " + barberId + " not found"));
-
-        // Upload the image
-        ImageResponseDto imageResponseDto = uploadImageUseCase.execute(createPostDto.getImage(), FolderEnum.POST_PICTURE.toString());
+        ImageResponseDto imageResponseDto = uploadImageUseCase.execute(createPostDto.getImage(), FolderEnum.POST_PICTURE.toString());// Upload the image
 
         // Map the DTO to the Post entity
         Post post = postMapper.toEntity(createPostDto);
         post.setBarberShop(barberShop);
-        post.setUrlImage(imageResponseDto.getSecure_url());
+        post.setSecureUrl(imageResponseDto.getSecure_url());
 
         // Save the Post entity and return the response DTO
         return postMapper.toDto(postRepository.save(post));
