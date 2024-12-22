@@ -14,7 +14,6 @@ public class CreatePostDto {
     @NotBlank(message = "image cannot be blank")
     private MultipartFile image;
 
-
     private String description;
 
 }
