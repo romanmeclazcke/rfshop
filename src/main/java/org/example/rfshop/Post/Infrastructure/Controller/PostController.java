@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/posts")
 public class PostController {
@@ -57,7 +59,7 @@ public class PostController {
 
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
+    public ResponseEntity<?> deletePost(@PathVariable Long postId) throws IOException {
         this.deletePostUseCase.execute(postId);
         return new ResponseEntity<>("Post with id "+postId+ " deleted", HttpStatus.OK);
     }

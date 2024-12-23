@@ -1,4 +1,4 @@
-package org.example.rfshop.Post.Infrastructure.Exception;
+package org.example.rfshop.Cloudinary.infrastructure.Config.Exception;
 
 public class FailToUploadImage extends RuntimeException {
     public FailToUploadImage(String message) {

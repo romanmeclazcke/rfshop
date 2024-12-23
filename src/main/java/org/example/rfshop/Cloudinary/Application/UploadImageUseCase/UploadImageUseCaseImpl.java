@@ -2,7 +2,7 @@ package org.example.rfshop.Cloudinary.Application.UploadImageUseCase;
 
 import com.cloudinary.Cloudinary;
 import org.example.rfshop.Cloudinary.Domain.Response.ImageResponseDto;
-import org.example.rfshop.Post.Infrastructure.Exception.FailToUploadImage;
+import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.FailToUploadImage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
