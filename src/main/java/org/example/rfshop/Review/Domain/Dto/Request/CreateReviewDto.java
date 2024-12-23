@@ -14,6 +14,6 @@ public class CreateReviewDto {
     @NotEmpty(message = "Review cannot be empty")
     private String review;
 
-    @NotNull(message = "Raiting cannot be null")
-    private Long  raiting;
+    @NotNull(message = "Rating cannot be null")
+    private Long  rating;
 }
