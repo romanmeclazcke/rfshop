@@ -1,6 +1,7 @@
 package org.example.rfshop.Review.Infrastructure.Mapper;
 
 import org.example.rfshop.Review.Domain.Dto.Request.CreateReviewDto;
+import org.example.rfshop.Review.Domain.Dto.Request.RaitingResponseDto;
 import org.example.rfshop.Review.Domain.Dto.Response.ReviewResponseDto;
 import org.example.rfshop.Review.Infrastructure.Model.Review;
 import org.example.rfshop.User.Infrastructure.Model.User;
@@ -15,11 +16,14 @@ public interface ReviewMapper {
     @Mapping(target = "user", expression = "java(toUserNameDto(review.getUser()))")
     ReviewResponseDto toDto(Review review);
 
+    RaitingResponseDto toDto(Double rating);
+
     default UserNameDto toUserNameDto(User user) {
         if (user == null) {
             return null;
         }
         return new UserNameDto(user.getId(),user.getUserName(), user.getLastName());
     }
+
 
 }
