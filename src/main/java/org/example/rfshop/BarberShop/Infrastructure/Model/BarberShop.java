@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.rfshop.Court.Infrastructure.Model.Court;
+import org.example.rfshop.Post.Infrastructure.Model.Post;
 import org.example.rfshop.User.Infrastructure.Model.User;
 
 import java.util.List;
@@ -41,7 +42,10 @@ public class BarberShop {
     @JoinColumn(nullable = false)
     private User owner;
 
-    @OneToMany(mappedBy = "barberShop", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "barberShop")
     private List<Court> courts;
+
+    @OneToMany (mappedBy = "barberShop")
+    private List<Post> post;
 
 }
