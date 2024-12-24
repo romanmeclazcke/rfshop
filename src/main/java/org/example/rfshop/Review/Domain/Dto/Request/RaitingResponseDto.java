@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateReviewDto {
-    private String review;
-    private Long rating;
+public class RaitingResponseDto {
+    private Double rating;
 }

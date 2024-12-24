@@ -3,7 +3,7 @@ package org.example.rfshop.Review.Domain.Dto.Response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.rfshop.User.Infrastructure.Model.User;
+import org.example.rfshop.User.domain.Dto.Response.UserNameDto;
 
 import java.util.Date;
 
@@ -14,7 +14,7 @@ public class ReviewResponseDto {
     private Long id;
     private String review;
     private String rating;
-    private User user;
+    private UserNameDto user;
     private Date createdAt;
     private Date updateAt;
 }
