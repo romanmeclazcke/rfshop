@@ -2,6 +2,7 @@ package org.example.rfshop.Review.Infrastructure.Controller;
 
 import org.example.rfshop.Review.Application.CreateReviewUseCase.CreateReviewUseCase;
 import org.example.rfshop.Review.Application.DeleteReviewUseCase.DeleteReviewUseCase;
+import org.example.rfshop.Review.Application.GetRatingByBarberShopId.GetRatingByBarberShopId;
 import org.example.rfshop.Review.Application.GetReviewByBarberShopId.GetReviewByBarberShopId;
 import org.example.rfshop.Review.Application.UpdateReviewUseCase.UpdateReviewUseCase;
 import org.example.rfshop.Review.Domain.Dto.Request.CreateReviewDto;
@@ -19,18 +20,26 @@ public class ReviewController {
     private final UpdateReviewUseCase updateReviewUseCase;
     private final DeleteReviewUseCase deleteReviewUseCase;
     private final GetReviewByBarberShopId getReviewByBarberShopId;
+    private final GetRatingByBarberShopId  getRatingByBarberShopId;
 
     @Autowired
-    public ReviewController(CreateReviewUseCase createReviewUseCase, UpdateReviewUseCase updateReviewUseCase, DeleteReviewUseCase deleteReviewUseCase, GetReviewByBarberShopId getReviewByBarberShopId) {
+    public ReviewController(CreateReviewUseCase createReviewUseCase, UpdateReviewUseCase updateReviewUseCase, DeleteReviewUseCase deleteReviewUseCase, GetReviewByBarberShopId getReviewByBarberShopId, GetRatingByBarberShopId getRatingByBarberShopId) {
         this.createReviewUseCase = createReviewUseCase;
         this.updateReviewUseCase = updateReviewUseCase;
         this.deleteReviewUseCase = deleteReviewUseCase;
         this.getReviewByBarberShopId = getReviewByBarberShopId;
+        this.getRatingByBarberShopId = getRatingByBarberShopId;
     }
 
     @GetMapping("/barber-shop/{barberShopId}")
     public ResponseEntity<?> getReviewByBarberShopId(@PathVariable Long barberShopId) {
         return new ResponseEntity<>(getReviewByBarberShopId.execute(barberShopId), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/rating/barber-shop/{barberShopId}")
+    public ResponseEntity<?> getRatingByBarberShopId(@PathVariable Long barberShopId) {
+        return new ResponseEntity<>(getRatingByBarberShopId.execute(barberShopId), HttpStatus.OK);
     }
 
     @PostMapping("/user/{userId}/barber-shop/{barberShopId}")
