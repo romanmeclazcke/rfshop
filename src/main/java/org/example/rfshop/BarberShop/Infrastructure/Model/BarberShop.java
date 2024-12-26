@@ -36,7 +36,7 @@ public class BarberShop {
     private String phone;
 
     @Column(nullable = false)
-    private Integer chair; //number of avalible chairs
+    private Integer chair; //number of available chairs
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
