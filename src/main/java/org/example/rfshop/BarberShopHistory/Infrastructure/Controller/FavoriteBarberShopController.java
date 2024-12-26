@@ -1,7 +1,7 @@
 package org.example.rfshop.BarberShopHistory.Infrastructure.Controller;
 
-import org.example.rfshop.BarberShopHistory.Application.AddBarberShopToHistoryUseCase.AddBarberShopToHistoryUseCase;
-import org.example.rfshop.BarberShopHistory.Application.DeleteBarberShopToHistoryUseCase.DeleteBarberShopToHistoryUseCase;
+import org.example.rfshop.BarberShopHistory.Application.AddBarberShopToFavoriteUseCase.AddBarberShopToFavoriteUseCase;
+import org.example.rfshop.BarberShopHistory.Application.DeleteBarberShopToFavoriteUseCase.DeleteBarberShopToFavoriteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("barber-shop/history")
-public class BarberShopHistoryController {
+public class FavoriteBarberShopController {
 
-    private final AddBarberShopToHistoryUseCase addBarberShopToHistoryUseCase;
-    private final DeleteBarberShopToHistoryUseCase deleteBarberShopToHistoryUseCase;
+    private final AddBarberShopToFavoriteUseCase addBarberShopToFavoriteUseCase;
+    private final DeleteBarberShopToFavoriteUseCase deleteBarberShopToHistoryUseCase;
 
     @Autowired
-    public BarberShopHistoryController(AddBarberShopToHistoryUseCase addBarberShopToHistoryUseCase, DeleteBarberShopToHistoryUseCase deleteBarberShopToHistoryUseCase) {
-        this.addBarberShopToHistoryUseCase = addBarberShopToHistoryUseCase;
+    public FavoriteBarberShopController(AddBarberShopToFavoriteUseCase addBarberShopToFavoriteUseCase, DeleteBarberShopToFavoriteUseCase deleteBarberShopToHistoryUseCase) {
+        this.addBarberShopToFavoriteUseCase = addBarberShopToFavoriteUseCase;
         this.deleteBarberShopToHistoryUseCase = deleteBarberShopToHistoryUseCase;
     }
 
 
     @PostMapping("/user/{userId}/barber-shop/{barberShopId}")
     public ResponseEntity<?> addBarberShopToHistory(@PathVariable Long userId, @PathVariable Long barberShopId) {
-            return new ResponseEntity<>(addBarberShopToHistoryUseCase.execute(userId, barberShopId), HttpStatus.CREATED);
+            return new ResponseEntity<>(addBarberShopToFavoriteUseCase.execute(userId, barberShopId), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/user/{userId}/barber-shop/{barberShopId}")

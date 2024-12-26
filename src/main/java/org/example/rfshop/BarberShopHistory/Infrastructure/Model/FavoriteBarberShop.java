@@ -15,10 +15,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BarberShopHistory {
+public class FavoriteBarberShop {
 
     @EmbeddedId
-    private BarberShopHistoryId id;
+    private FavoriteBarberShopId id;
 
     @ManyToOne
     private User user;

@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BarberShopHistoryId  implements Serializable {
+public class FavoriteBarberShopId implements Serializable {
 
     private Long userId;
     private Long barberShopId;
