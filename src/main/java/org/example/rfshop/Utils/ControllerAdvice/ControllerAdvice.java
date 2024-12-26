@@ -6,6 +6,7 @@ import org.example.rfshop.BarberShop.Infrastructure.Exception.InvalidRole;
 import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.FailToDeleteImage;
 import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.FailToUploadImage;
 import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.PublicIdNotFound;
+import org.example.rfshop.FavoriteBarberShop.Infrastructure.Exception.BarberShopAlreadyAddedException;
 import org.example.rfshop.User.Infrastructure.Exception.EmailAlreadyInUse;
 import org.example.rfshop.User.Infrastructure.Exception.RolNotFound;
 import org.example.rfshop.Utils.Dto.ErrorDto;
@@ -120,6 +121,15 @@ public class ControllerAdvice {
                 e.getMessage(),
                 ErrorCodes.INTERNAL_SERVER_ERROR,
                 HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+    @ExceptionHandler(BarberShopAlreadyAddedException.class)
+    public ResponseEntity<ErrorDto> handleBarberShopAlreadyAddedToFavorite( BarberShopAlreadyAddedException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.BAD_REQUEST_ERROR,
+                HttpStatus.BAD_REQUEST
         );
     }
 
