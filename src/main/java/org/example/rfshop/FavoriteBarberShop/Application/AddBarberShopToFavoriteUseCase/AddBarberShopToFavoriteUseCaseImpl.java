@@ -1,14 +1,14 @@
-package org.example.rfshop.BarberShopHistory.Application.AddBarberShopToFavoriteUseCase;
+package org.example.rfshop.FavoriteBarberShop.Application.AddBarberShopToFavoriteUseCase;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;
-import org.example.rfshop.BarberShopHistory.Domain.Dto.Response.FavoriteBarberShopResponseDto;
-import org.example.rfshop.BarberShopHistory.Infrastructure.Exception.BarbeShopAlreadyAddedException;
-import org.example.rfshop.BarberShopHistory.Infrastructure.Mapper.FavoriteBarberShopMapper;
-import org.example.rfshop.BarberShopHistory.Infrastructure.Model.FavoriteBarberShop;
-import org.example.rfshop.BarberShopHistory.Infrastructure.Model.FavoriteBarberShopId;
-import org.example.rfshop.BarberShopHistory.Infrastructure.Repository.FavoriteBarberShopRepository;
+import org.example.rfshop.FavoriteBarberShop.Domain.Dto.Response.FavoriteBarberShopResponseDto;
+import org.example.rfshop.FavoriteBarberShop.Infrastructure.Exception.BarberShopAlreadyAddedException;
+import org.example.rfshop.FavoriteBarberShop.Infrastructure.Mapper.FavoriteBarberShopMapper;
+import org.example.rfshop.FavoriteBarberShop.Infrastructure.Model.FavoriteBarberShop;
+import org.example.rfshop.FavoriteBarberShop.Infrastructure.Model.FavoriteBarberShopId;
+import org.example.rfshop.FavoriteBarberShop.Infrastructure.Repository.FavoriteBarberShopRepository;
 import org.example.rfshop.User.Infrastructure.Model.User;
 import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class AddBarberShopToFavoriteUseCaseImpl implements AddBarberShopToFavori
 
         this.favoriteBarberShopRepository.findById(id)
                 .ifPresent(history -> {
-                    throw new BarbeShopAlreadyAddedException("BarberShop with id " + barberShopId + " already added to history");
+                    throw new BarberShopAlreadyAddedException("BarberShop with id " + barberShopId + " already added to history");
                 });
 
         FavoriteBarberShop favoriteBarberShop = FavoriteBarberShop.builder()

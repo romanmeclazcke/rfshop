@@ -1,4 +1,4 @@
-package org.example.rfshop.BarberShopHistory.Infrastructure.Model;
+package org.example.rfshop.FavoriteBarberShop.Infrastructure.Model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,22 +15,27 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "favorite_barber_shop")
 public class FavoriteBarberShop {
 
     @EmbeddedId
     private FavoriteBarberShopId id;
 
     @ManyToOne
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @MapsId("barberShopId")
+    @JoinColumn(name = "barber_shop_id")
     private BarberShop barberShop;
 
     @Column
-    private Date date;
+    private Date createdAt;
 
     @PrePersist
     protected void onCreate() {
-        date = new Date();
+        createdAt = new Date();
     }
 }

@@ -1,4 +1,4 @@
-package org.example.rfshop.BarberShopHistory.Infrastructure.Model;
+package org.example.rfshop.FavoriteBarberShop.Infrastructure.Model;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
@@ -15,6 +15,4 @@ public class FavoriteBarberShopId implements Serializable {
 
     private Long userId;
     private Long barberShopId;
-
-
 }
