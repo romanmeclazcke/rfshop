@@ -14,9 +14,9 @@ public class CreateUserDto {
     @NotEmpty(message = "The email cannot be empty")
     private String email;
 
-    @NotEmpty(message = "The username cannot be empty")
-    @Size(min = 3, max = 50, message = "The username must be between 3 and 50 characters")
-    private String userName;
+    @NotEmpty(message = "The name cannot be empty")
+    @Size(min = 3, max = 50, message = "The name must be between 3 and 50 characters")
+    private String name;
 
     @NotEmpty(message = "The last name cannot be empty")
     private String lastName;
