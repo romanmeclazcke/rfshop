@@ -1,45 +1,49 @@
 package org.example.rfshop.BarberShop.Application.CreateBarberShopUseCase;
 
 
-import jakarta.persistence.EntityNotFoundException;
+import org.example.rfshop.Auth.Application.ExtractUserEmailFromSecurityContextUseCase.ExtractUserEmailFromSecurityContext;
 import org.example.rfshop.BarberShop.Domain.Dto.Request.CreateBarberShopDto;
 import org.example.rfshop.BarberShop.Domain.Dto.Response.BarberShopResponseDto;
 import org.example.rfshop.BarberShop.Infrastructure.Exception.InvalidRole;
 import org.example.rfshop.BarberShop.Infrastructure.Mapper.BarberShopMapper;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;
-import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
+import org.example.rfshop.User.Application.GetUserByEmail.GetUserByEmail;
+import org.example.rfshop.User.Infrastructure.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
 @Service
 public class CreateBarberShopUseCaseImpl implements CreateBarberShopUseCase {
 
-    private BarberShopRepository barberShopRepository;
-    private UserRepository userRepository;
-    private BarberShopMapper barberShopMapper;
+    private final BarberShopRepository barberShopRepository;
+    private final BarberShopMapper barberShopMapper;
+    private final GetUserByEmail getUserByEmail;
+    private final ExtractUserEmailFromSecurityContext extractUserEmailFromSecurityContext;
 
     @Autowired
-    public CreateBarberShopUseCaseImpl(BarberShopRepository barberShopRepository, UserRepository userRepository, BarberShopMapper barberShopMapper) {
+    public CreateBarberShopUseCaseImpl(BarberShopRepository barberShopRepository, BarberShopMapper barberShopMapper, GetUserByEmail getUserByEmail, ExtractUserEmailFromSecurityContext ExtractUserEmailFromSecurityContext) {
         this.barberShopRepository = barberShopRepository;
-        this.userRepository = userRepository;
         this.barberShopMapper = barberShopMapper;
+        this.getUserByEmail = getUserByEmail;
+        this.extractUserEmailFromSecurityContext = ExtractUserEmailFromSecurityContext;
     }
 
 
     @Override
-    public BarberShopResponseDto execute(Long ownerId, CreateBarberShopDto createBarberShopDto) {
-        return this.userRepository.findById(ownerId)
-                .map(user -> {
-                    if (!"BARBER".equals(user.getRole().getName())) {
-                        throw new InvalidRole("If the user doesn't have role Barber, they cannot create a BarberShop");
-                    }
-                    BarberShop barberShop =this.barberShopMapper.toEntity(createBarberShopDto);
-                    barberShop.setOwner(user);
-                    this.barberShopRepository.save(barberShop);
-                    return this.barberShopMapper.toDto(barberShop);
-                })
-                .orElseThrow(() -> new EntityNotFoundException("User owner not found"));
+    public BarberShopResponseDto execute(CreateBarberShopDto createBarberShopDto) {
+        String email = this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext());
+        User user = this.getUserByEmail.execute(email);
+
+        if (!"BARBER".equals(user.getRole().getName())) {
+            throw new InvalidRole("If the user doesn't have role Barber, they cannot create a BarberShop");
+        }
+
+        BarberShop barberShop = this.barberShopMapper.toEntity(createBarberShopDto);
+        barberShop.setOwner(user);
+        this.barberShopRepository.save(barberShop);
+        return this.barberShopMapper.toDto(barberShop);
     }
 }
