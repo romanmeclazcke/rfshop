@@ -1,11 +1,14 @@
 package org.example.rfshop.FavoriteBarberShop.Application.DeleteBarberShopToFavoriteUseCase;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.example.rfshop.Auth.Application.ExtractUserEmailFromSecurityContextUseCase.ExtractUserEmailFromSecurityContext;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;
 import org.example.rfshop.FavoriteBarberShop.Infrastructure.Model.FavoriteBarberShopId;
 import org.example.rfshop.FavoriteBarberShop.Infrastructure.Repository.FavoriteBarberShopRepository;
-import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
+import org.example.rfshop.User.Application.GetUserByEmail.GetUserByEmail;
+import org.example.rfshop.User.Infrastructure.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,24 +17,27 @@ public class DeleteBarberShopToFavoriteUseCaseImpl implements DeleteBarberShopTo
 
     private final FavoriteBarberShopRepository favoriteBarberShopRepository;
     private final BarberShopRepository barberShopRepository;
-    private final UserRepository userRepository;
+    private final GetUserByEmail getUserByEmail;
+    private final ExtractUserEmailFromSecurityContext extractUserEmailFromSecurityContext;
 
     @Autowired
-    public DeleteBarberShopToFavoriteUseCaseImpl(FavoriteBarberShopRepository favoriteBarberShopRepository, BarberShopRepository barberShopRepository, UserRepository userRepository) {
+    public DeleteBarberShopToFavoriteUseCaseImpl(FavoriteBarberShopRepository favoriteBarberShopRepository, BarberShopRepository barberShopRepository,GetUserByEmail getUserByEmail, ExtractUserEmailFromSecurityContext extractUserEmailFromSecurityContext) {
         this.favoriteBarberShopRepository = favoriteBarberShopRepository;
         this.barberShopRepository = barberShopRepository;
-        this.userRepository = userRepository;
+        this.getUserByEmail = getUserByEmail;
+        this.extractUserEmailFromSecurityContext = extractUserEmailFromSecurityContext;
     }
 
     @Override
-    public void execute(Long userId, Long barberShopId) {
+    public void execute(Long barberShopId) {
+        String email = this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext());
+        User user= this.getUserByEmail.execute(email);
         this.barberShopRepository.findById(barberShopId).orElseThrow(() -> new EntityNotFoundException("Barber shop with id  " + barberShopId + " not found"));
-        this.userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User with id  " + userId + " not found"));
 
-        this.favoriteBarberShopRepository.findById(new FavoriteBarberShopId(userId, barberShopId)).
-                ifPresentOrElse(favorite -> this.favoriteBarberShopRepository.delete(favorite),
+        this.favoriteBarberShopRepository.findById(new FavoriteBarberShopId(user.getId(), barberShopId)).
+                ifPresentOrElse(this.favoriteBarberShopRepository::delete,
                         () -> {
-                            throw new EntityNotFoundException("User with id " + userId + " not have barber shop with id " + barberShopId);
+                            throw new EntityNotFoundException("User not have barber shop with id " + barberShopId + "added to favorite");
                         });
     }
 }
