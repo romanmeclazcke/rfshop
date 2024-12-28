@@ -12,6 +12,7 @@ import org.example.rfshop.User.Infrastructure.Exception.RolNotFound;
 import org.example.rfshop.Utils.Dto.ErrorDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -126,6 +127,15 @@ public class ControllerAdvice {
 
     @ExceptionHandler(BarberShopAlreadyAddedException.class)
     public ResponseEntity<ErrorDto> handleBarberShopAlreadyAddedToFavorite( BarberShopAlreadyAddedException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.BAD_REQUEST_ERROR,
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleUsernameNotFoundException( UsernameNotFoundException e) {
         return buildErrorResponse(
                 e.getMessage(),
                 ErrorCodes.BAD_REQUEST_ERROR,
