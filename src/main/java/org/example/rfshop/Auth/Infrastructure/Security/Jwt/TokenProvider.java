@@ -4,6 +4,8 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,7 +31,6 @@ public class TokenProvider {
     private final int tokenValidityInMilliseconds;
 
     public TokenProvider() {
-        System.out.println(this.secret);
         this.tokenValidityInMilliseconds = 1000 * 86400; // Token  por 1 día.
     }
 
@@ -74,7 +75,6 @@ public class TokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            System.out.println("Token: " + token);
             final var claims = jwtParser.parseClaimsJws(token);
             this.checkTokenExpiration(claims);
             return true;
