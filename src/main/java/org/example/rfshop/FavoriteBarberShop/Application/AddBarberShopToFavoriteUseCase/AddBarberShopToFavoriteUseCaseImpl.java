@@ -1,6 +1,7 @@
 package org.example.rfshop.FavoriteBarberShop.Application.AddBarberShopToFavoriteUseCase;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.example.rfshop.Auth.Application.ExtractUserEmailFromSecurityContextUseCase.ExtractUserEmailFromSecurityContext;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;
 import org.example.rfshop.FavoriteBarberShop.Domain.Dto.Response.FavoriteBarberShopResponseDto;
@@ -9,9 +10,10 @@ import org.example.rfshop.FavoriteBarberShop.Infrastructure.Mapper.FavoriteBarbe
 import org.example.rfshop.FavoriteBarberShop.Infrastructure.Model.FavoriteBarberShop;
 import org.example.rfshop.FavoriteBarberShop.Infrastructure.Model.FavoriteBarberShopId;
 import org.example.rfshop.FavoriteBarberShop.Infrastructure.Repository.FavoriteBarberShopRepository;
+import org.example.rfshop.User.Application.GetUserByEmail.GetUserByEmail;
 import org.example.rfshop.User.Infrastructure.Model.User;
-import org.example.rfshop.User.Infrastructure.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,21 +21,23 @@ public class AddBarberShopToFavoriteUseCaseImpl implements AddBarberShopToFavori
 
     private final FavoriteBarberShopRepository favoriteBarberShopRepository;
     private final FavoriteBarberShopMapper barberShopHistoryMapper;
-    private final UserRepository userRepository;
     private final BarberShopRepository barberShopRepository;
+    private final GetUserByEmail getUserByEmail;
+    private final ExtractUserEmailFromSecurityContext extractUserEmailFromSecurityContext;
 
 
     @Autowired
-    public AddBarberShopToFavoriteUseCaseImpl(FavoriteBarberShopRepository favoriteBarberShopRepository, FavoriteBarberShopMapper barberShopHistoryMapper, UserRepository userRepository, BarberShopRepository barberShopRepository) {
+    public AddBarberShopToFavoriteUseCaseImpl(FavoriteBarberShopRepository favoriteBarberShopRepository, FavoriteBarberShopMapper barberShopHistoryMapper , BarberShopRepository barberShopRepository, GetUserByEmail getUserByEmail, ExtractUserEmailFromSecurityContext extractUserEmailFromSecurityContext) {
         this.favoriteBarberShopRepository = favoriteBarberShopRepository;
         this.barberShopHistoryMapper = barberShopHistoryMapper;
-        this.userRepository = userRepository;
         this.barberShopRepository = barberShopRepository;
+        this.getUserByEmail = getUserByEmail;
+        this.extractUserEmailFromSecurityContext = extractUserEmailFromSecurityContext;
     }
 
     @Override
-    public FavoriteBarberShopResponseDto execute(Long userId, Long barberShopId) {
-        User user = this.userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User with id " + userId + " not found"));
+    public FavoriteBarberShopResponseDto execute(Long barberShopId) {
+        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
         BarberShop barberShop = this.barberShopRepository.findById(barberShopId).orElseThrow(() -> new EntityNotFoundException("BarberShop with id " + barberShopId + " not found"));
 
         FavoriteBarberShopId id = new FavoriteBarberShopId(user.getId(), barberShop.getId());

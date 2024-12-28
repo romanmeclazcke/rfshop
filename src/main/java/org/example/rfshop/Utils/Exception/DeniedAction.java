@@ -1,4 +1,4 @@
-package org.example.rfshop.BarberShop.Infrastructure.Exception;
+package org.example.rfshop.Utils.Exception;
 
 public class DeniedAction extends RuntimeException{
     public  DeniedAction(String message){

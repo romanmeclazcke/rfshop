@@ -3,5 +3,5 @@ package org.example.rfshop.FavoriteBarberShop.Application.AddBarberShopToFavorit
 import org.example.rfshop.FavoriteBarberShop.Domain.Dto.Response.FavoriteBarberShopResponseDto;
 
 public interface AddBarberShopToFavoriteUseCase {
-    FavoriteBarberShopResponseDto execute(Long userId, Long barberShopId);
+    FavoriteBarberShopResponseDto execute(Long barberShopId);
 }

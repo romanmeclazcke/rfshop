@@ -29,14 +29,14 @@ public class FavoriteBarberShopController {
         return new ResponseEntity<>(getAllFavoriteBarberShopByUserId.execute(userId), HttpStatus.OK);
     }
 
-    @PostMapping("/user/{userId}/barber-shop/{barberShopId}")
-    public ResponseEntity<?> addBarberShopToHistory(@PathVariable Long userId, @PathVariable Long barberShopId) {
-            return new ResponseEntity<>(addBarberShopToFavoriteUseCase.execute(userId, barberShopId), HttpStatus.CREATED);
+    @PostMapping("/barber-shop/{barberShopId}")
+    public ResponseEntity<?> addBarberShopToHistory(@PathVariable Long barberShopId) {
+            return new ResponseEntity<>(addBarberShopToFavoriteUseCase.execute(barberShopId), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/user/{userId}/barber-shop/{barberShopId}")
-    public ResponseEntity<?> deleteBarberShopToHistory(@PathVariable Long userId, @PathVariable Long barberShopId) {
-            deleteBarberShopToHistoryUseCase.execute(userId, barberShopId);
+    @DeleteMapping("/barber-shop/{barberShopId}")
+    public ResponseEntity<?> deleteBarberShopToHistory(@PathVariable Long barberShopId) {
+            deleteBarberShopToHistoryUseCase.execute( barberShopId);
             return new ResponseEntity<>("Barber shop deleted from history", HttpStatus.OK);
     }
 }

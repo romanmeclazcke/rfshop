@@ -5,7 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.example.rfshop.Auth.Application.ExtractUserEmailFromSecurityContextUseCase.ExtractUserEmailFromSecurityContext;
 import org.example.rfshop.BarberShop.Domain.Dto.Request.UpdateBarberShopDto;
 import org.example.rfshop.BarberShop.Domain.Dto.Response.BarberShopResponseDto;
-import org.example.rfshop.BarberShop.Infrastructure.Exception.DeniedAction;
+import org.example.rfshop.Utils.Exception.DeniedAction;
 import org.example.rfshop.BarberShop.Infrastructure.Mapper.BarberShopMapper;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;

@@ -2,7 +2,7 @@ package org.example.rfshop.BarberShop.Application.DeleteBarberShopUseCase;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.example.rfshop.Auth.Application.ExtractUserEmailFromSecurityContextUseCase.ExtractUserEmailFromSecurityContext;
-import org.example.rfshop.BarberShop.Infrastructure.Exception.DeniedAction;
+import org.example.rfshop.Utils.Exception.DeniedAction;
 import org.example.rfshop.BarberShop.Infrastructure.Model.BarberShop;
 import org.example.rfshop.BarberShop.Infrastructure.Repository.BarberShopRepository;
 import org.example.rfshop.User.Application.GetUserByEmail.GetUserByEmail;
