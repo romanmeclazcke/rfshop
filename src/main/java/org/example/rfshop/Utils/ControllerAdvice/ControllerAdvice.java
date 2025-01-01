@@ -1,5 +1,7 @@
 package org.example.rfshop.Utils.ControllerAdvice;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.example.rfshop.BarberShop.Infrastructure.Exception.InvalidRole;
@@ -140,6 +142,24 @@ public class ControllerAdvice {
                 e.getMessage(),
                 ErrorCodes.BAD_REQUEST_ERROR,
                 HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ErrorDto> handleJwtException( JwtException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.INVALID_TOKEN,
+                HttpStatus.UNAUTHORIZED
+        );
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<ErrorDto> handleExpiredJwtException( ExpiredJwtException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.TOKEN_EXPIRED,
+                HttpStatus.UNAUTHORIZED
         );
     }
 

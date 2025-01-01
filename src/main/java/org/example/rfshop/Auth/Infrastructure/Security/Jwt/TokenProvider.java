@@ -87,7 +87,7 @@ public class TokenProvider {
         try {
             final var payload = token.getBody();
             if (payload.getExpiration().before(new Date()) || payload.getIssuedAt().after(new Date((new Date()).getTime() + this.tokenValidityInMilliseconds))) {
-                throw new ExpiredJwtException(null, null, null);
+                throw new ExpiredJwtException(null, null, "Token has expired");
             }
         } catch (Exception e) {
             throw new ExpiredJwtException(null, null, null);
