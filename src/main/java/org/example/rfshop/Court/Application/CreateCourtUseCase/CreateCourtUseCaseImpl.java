@@ -8,8 +8,6 @@ import org.example.rfshop.Court.Infrastructure.Repository.CourtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class CreateCourtUseCaseImpl implements CreateCourtUseCase {
 
@@ -23,7 +21,7 @@ public class CreateCourtUseCaseImpl implements CreateCourtUseCase {
     }
 
     @Override
-    public CourtResponseDto execute(CreateCourtDto createCourtDto) {
+    public CourtResponseDto execute(CreateCourtDto createCourtDto) { // i need have the barbershop id
         Court court = this.courtMapper.toEntity(createCourtDto);
         return this.courtMapper.toDto(this.courtRepository.save(court));
     }
