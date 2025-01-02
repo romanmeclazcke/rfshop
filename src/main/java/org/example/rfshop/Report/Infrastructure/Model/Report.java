@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.rfshop.Report.Domain.Dto.ReportStatus.ReportStatus;
 import org.example.rfshop.Review.Infrastructure.Model.Review;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class Report {
 
     private String description;
 
-    private Date date;
+    private Date createAt;
 
     private String status;
 
@@ -30,7 +31,8 @@ public class Report {
 
     @PrePersist
     protected void onCreate() {
-        date = new Date();
+        createAt = new Date();
+        status = ReportStatus.PENDING.toString();
     }
 
 }
