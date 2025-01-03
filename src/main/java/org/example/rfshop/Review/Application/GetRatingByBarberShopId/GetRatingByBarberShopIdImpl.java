@@ -26,7 +26,6 @@ public class GetRatingByBarberShopIdImpl implements GetRatingByBarberShopId{
     public RaitingResponseDto execute(Long barberShopId) {
         this.barberShopRepository.findById(barberShopId).orElseThrow(() -> new EntityNotFoundException("BarberShop with id "+ barberShopId +" not found"));
         Double rating = this.reviewRepository.getRatingByBarberShopId(barberShopId);
-        System.out.println(rating);
         return this.reviewMapper.toDto(rating);
     }
 }

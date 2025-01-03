@@ -44,9 +44,9 @@ public class BarberShopController {
         return new ResponseEntity<>(this.getBarberShopByIdUseCase.execute(barberShopId), HttpStatus.OK);
     }
 
-    @PostMapping("/owner/{ownerId}")
-    public ResponseEntity<?> createBarberShop(@PathVariable Long ownerId,@RequestBody @Valid CreateBarberShopDto createBarberShopDto) {
-        return new ResponseEntity<>(this.createBarberShopUseCase.execute(ownerId,createBarberShopDto), HttpStatus.CREATED);
+    @PostMapping("")
+    public ResponseEntity<?> createBarberShop(@RequestBody @Valid CreateBarberShopDto createBarberShopDto) {
+        return new ResponseEntity<>(this.createBarberShopUseCase.execute(createBarberShopDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{barberId}")

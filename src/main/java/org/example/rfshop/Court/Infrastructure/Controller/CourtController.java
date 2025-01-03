@@ -28,8 +28,6 @@ public class CourtController {
         this.deleteCourtUseCases = deleteCourtUseCases;
     }
 
-
-
 //    @GetMapping("/{barberShopId}")
 //    public ResponseEntity<?> getAllBarberShop(@PathVariable Long barberShopId) {
 //        return new ResponseEntity<>(this.getBarberShopByIdUseCase.execute(barberShopId), HttpStatus.OK);

@@ -5,6 +5,7 @@ import org.example.rfshop.Post.Domain.Dto.Response.PostResponseDto;
 import org.example.rfshop.Post.Infrastructure.Mapper.PostMapper;
 import org.example.rfshop.Post.Infrastructure.Repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,9 +23,10 @@ public class GetPostByIdUseCaseImpl implements  GetPostByIdUseCase{
 
     @Override
     public PostResponseDto execute(Long postId) {
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return this.postRepository.findById(postId)
                 .map(this.postMapper::toDto)
-                .orElseThrow(()-> new EntityNotFoundException("Post with id "+ postId+" not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Post with id " + postId + " not found"));
     }
 
 }

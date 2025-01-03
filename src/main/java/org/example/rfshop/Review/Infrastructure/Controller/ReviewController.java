@@ -42,9 +42,9 @@ public class ReviewController {
         return new ResponseEntity<>(getRatingByBarberShopId.execute(barberShopId), HttpStatus.OK);
     }
 
-    @PostMapping("/user/{userId}/barber-shop/{barberShopId}")
-    public ResponseEntity<?> createReview(@PathVariable Long userId, @PathVariable Long barberShopId, @RequestBody CreateReviewDto createReviewDto) {
-        return new ResponseEntity<>(createReviewUseCase.execute(userId, barberShopId, createReviewDto), HttpStatus.CREATED);
+    @PostMapping("/barber-shop/{barberShopId}")
+    public ResponseEntity<?> createReview(@PathVariable Long barberShopId, @RequestBody CreateReviewDto createReviewDto) {
+        return new ResponseEntity<>(createReviewUseCase.execute(barberShopId, createReviewDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{reviewId}")

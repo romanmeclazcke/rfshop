@@ -22,7 +22,7 @@ public interface ReviewMapper {
         if (user == null) {
             return null;
         }
-        return new UserNameDto(user.getId(),user.getUserName(), user.getLastName());
+        return new UserNameDto(user.getId(),user.getName(), user.getLastName());
     }
 
 

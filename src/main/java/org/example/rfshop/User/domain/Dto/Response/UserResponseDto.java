@@ -11,7 +11,7 @@ import org.example.rfshop.User.Infrastructure.Model.Role;
 public class UserResponseDto {
     private Long id;
     private String email;
-    private String userName;
+    private String name;
     private String lastName;
     private String password;
     private Role role;
