@@ -9,5 +9,5 @@ public enum ErrorCodes {
     TOKEN_EXPIRED,
     EMAIL_ALREADY_IN_USE,
     VALIDATION_ERROR,
-
+    MESSAGING_ERROR
 }
