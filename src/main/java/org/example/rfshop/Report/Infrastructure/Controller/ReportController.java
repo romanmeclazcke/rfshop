@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequestMapping("/report")
 public class ReportController {
@@ -19,7 +21,7 @@ public class ReportController {
     }
 
     @PostMapping("/review/{reviewId}")
-    public ResponseEntity<?> createReport(@PathVariable Long reviewId, @RequestBody CreateReportDto createReportDto) {
-        return new ResponseEntity<>(this.createReportUseCase.execute(reviewId, createReportDto), HttpStatus.CREATED);
+    public ResponseEntity<?> createReport(@PathVariable Long reviewId, @RequestBody CreateReportDto createReportDto) throws MessagingException {
+            return new ResponseEntity<>(this.createReportUseCase.execute(reviewId, createReportDto), HttpStatus.CREATED);
     }
 }
