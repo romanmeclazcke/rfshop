@@ -19,6 +19,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -163,7 +164,17 @@ public class ControllerAdvice {
         );
     }
 
-    // Method to create a Error dto
+    @ExceptionHandler(MessagingException.class)
+    public ResponseEntity<ErrorDto> handleMessagingException(MessagingException e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.MESSAGING_ERROR,
+                HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
+
+    // Method to create A Error dto
     private ResponseEntity<ErrorDto> buildErrorResponse(String errorMessage, ErrorCodes errorCode, HttpStatus httpStatus) {
         return new ResponseEntity<>(ErrorDto.builder()
                 .message(errorMessage)
