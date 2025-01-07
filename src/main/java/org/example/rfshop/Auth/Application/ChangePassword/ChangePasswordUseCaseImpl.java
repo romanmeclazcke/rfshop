@@ -28,11 +28,11 @@ public class ChangePasswordUseCaseImpl implements ChangePasswordUseCase {
 
     @Override
     public void execute(ChangePasswordDto  changePasswordDto) {
-        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
-        if(!this.passwordEncoder.matches(changePasswordDto.getOldPassword(), user.getPassword())){
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        if(!this.passwordEncoder.matches(changePasswordDto.getOldPassword(), currentUser.getPassword())){
             throw new InvalidPassword("Invalid password");
         }
-        user.setPassword(this.passwordEncoder.encode(changePasswordDto.getNewPassword()));
-        this.userRepository.save(user);
+        currentUser.setPassword(this.passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        this.userRepository.save(currentUser);
     }
 }

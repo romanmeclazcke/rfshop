@@ -32,10 +32,10 @@ public class UpdateReviewUseCaseImpl implements UpdateReviewUseCase {
 
     @Override
     public ReviewResponseDto execute(Long reviewId, UpdateReviewDto updateReviewDto) {
-        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
         Review review = this.reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review  with id " + reviewId + " not found"));
 
-        if (user.getId().equals(review.getUser().getId())){
+        if (currentUser.getId().equals(review.getUser().getId())){
             throw new DeniedAction("Only the owner of review can delete it");
         }
 

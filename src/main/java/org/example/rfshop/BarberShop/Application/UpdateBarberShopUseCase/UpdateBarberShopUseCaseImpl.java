@@ -36,9 +36,9 @@ public class UpdateBarberShopUseCaseImpl  implements UpdateBarberShopUseCase {
     @Override
     public BarberShopResponseDto execute(Long barberId,UpdateBarberShopDto updateBarberShopDto) {
         BarberShop barberShop = this.barberShopRepository.findById(barberId).orElseThrow(()-> new EntityNotFoundException("Barber with id " + barberId + " not found"));
-        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
 
-        if(!barberShop.getOwner().getId().equals(user.getId())){
+        if(!barberShop.getOwner().getId().equals(currentUser.getId())){
             throw  new DeniedAction("Only the owner of barber shop can deleted it");
         }
 

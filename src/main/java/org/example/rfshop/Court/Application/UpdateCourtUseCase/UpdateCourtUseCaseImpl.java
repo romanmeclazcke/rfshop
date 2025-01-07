@@ -36,9 +36,9 @@ public class UpdateCourtUseCaseImpl implements UpdateCourtUseCase {
     public CourtResponseDto execute(Long courtId, UpdateCourtDto updateCourtDto) {
         Court court = this.courtRepository.findById(courtId).orElseThrow(()->new EntityNotFoundException("Court with id"+ courtId+"not found"));
 
-        User  user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        User  currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
 
-        if (!user.getId().equals(court.getBarberShop().getOwner().getId())) {  //check if user that are updating a court is  the owner of barber shop
+        if (!currentUser.getId().equals(court.getBarberShop().getOwner().getId())) {  //check if user that are updating a court is  the owner of barber shop
             throw new DeniedAction("You are not the owner of the barber shop");
         }
 

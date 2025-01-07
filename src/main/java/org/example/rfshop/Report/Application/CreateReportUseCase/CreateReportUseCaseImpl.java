@@ -45,9 +45,9 @@ public class CreateReportUseCaseImpl implements CreateReportUseCase{
     public ReportResponseDto execute(Long reviewId, CreateReportDto createReportDto) {
         Review review = this.reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new EntityNotFoundException("Review with id " + reviewId + " not found"));
-        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
 
-        if (!user.getId().equals(review.getBarberShop().getOwner().getId())) {
+        if (!currentUser.getId().equals(review.getBarberShop().getOwner().getId())) {
             throw new DeniedAction("Only the owner of barber shop can report a review");
         }
 
