@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetBarberShopByIdUseCaseImpl implements GetBarberShopByIdUseCase {
 
-    private BarberShopRepository barberShopRepository;
-    private BarberShopMapper barberShopMapper;
+    private final BarberShopRepository barberShopRepository;
+    private final BarberShopMapper barberShopMapper;
 
     @Autowired
     public GetBarberShopByIdUseCaseImpl(BarberShopRepository barberShopRepository, UserRepository userRepository, BarberShopMapper barberShopMapper) {
