@@ -37,10 +37,10 @@ public class AddBarberShopToFavoriteUseCaseImpl implements AddBarberShopToFavori
 
     @Override
     public FavoriteBarberShopResponseDto execute(Long barberShopId) {
-        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
         BarberShop barberShop = this.barberShopRepository.findById(barberShopId).orElseThrow(() -> new EntityNotFoundException("BarberShop with id " + barberShopId + " not found"));
 
-        FavoriteBarberShopId id = new FavoriteBarberShopId(user.getId(), barberShop.getId());
+        FavoriteBarberShopId id = new FavoriteBarberShopId(currentUser.getId(), barberShop.getId());
 
         this.favoriteBarberShopRepository.findById(id)
                 .ifPresent(history -> {
@@ -49,7 +49,7 @@ public class AddBarberShopToFavoriteUseCaseImpl implements AddBarberShopToFavori
 
         FavoriteBarberShop favoriteBarberShop = FavoriteBarberShop.builder()
                                                                               .id(id)
-                                                                              .user(user)
+                                                                              .user(currentUser)
                                                                               .barberShop(barberShop).build();
         return this.barberShopHistoryMapper.toDto(this.favoriteBarberShopRepository.save(favoriteBarberShop));
     }

@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CreateReportUseCaseImpl implements CreateReportUseCase{
@@ -42,28 +43,26 @@ public class CreateReportUseCaseImpl implements CreateReportUseCase{
 
     @Override
     public ReportResponseDto execute(Long reviewId, CreateReportDto createReportDto) {
-        try {
-            Review review = this.reviewRepository.findById(reviewId)
-                    .orElseThrow(() -> new EntityNotFoundException("Review with id " + reviewId + " not found"));
-            User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        Review review = this.reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("Review with id " + reviewId + " not found"));
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
 
-            if (!user.getId().equals(review.getBarberShop().getOwner().getId())) {
-                throw new DeniedAction("Only the owner of barber shop can report a review");
-            }
-
-            Report report = this.reportMapper.toEntity(createReportDto);
-            report.setReview(review);
-            this.sendEmailUseCase.execute(new EmailReport("romanmeclazcke1234@gmail.com", "Report", review));
-            return this.reportMapper.toDto(this.reportRepository.save(report));
-        } catch (EntityNotFoundException | DeniedAction e) {
-            // Manejo de excepciones específicas
-            throw e;
-        } catch (MessagingException e) {
-            // Manejo de excepciones de correo electrónico
-            throw new RuntimeException("Error sending email", e);
-        } catch (Exception e) {
-            // Manejo de cualquier otra excepción
-            throw new RuntimeException("An unexpected error occurred", e);
+        if (!currentUser.getId().equals(review.getBarberShop().getOwner().getId())) {
+            throw new DeniedAction("Only the owner of barber shop can report a review");
         }
+
+        Report report = this.reportMapper.toEntity(createReportDto);
+        report.setReview(review);
+        this.reportRepository.save(report);
+
+        CompletableFuture.runAsync(() -> { //run the method to send email in parallel (Reduced time to execution from 3.80s to 30ms)
+            try {
+                this.sendEmailUseCase.execute(new EmailReport("romanmeclazcke1234@gmail.com", "Report", review));
+            } catch (MessagingException e) {
+                throw new RuntimeException("Error sending email", e);
+            }
+        });
+
+        return this.reportMapper.toDto(report);
     }
 }

@@ -36,11 +36,13 @@ public class CreateReviewUseCaseImpl implements CreateReviewUseCase {
 
     @Override
     public ReviewResponseDto execute(Long barberShopId, CreateReviewDto createReviewDto) {
-        User user = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
+        User currentUser = this.getUserByEmail.execute(this.extractUserEmailFromSecurityContext.execute(SecurityContextHolder.getContext()));
         BarberShop barberShop = this.barberShopRepository.findById(barberShopId).orElseThrow(() -> new EntityNotFoundException("BarberShop with id " + barberShopId + " not found"));
+
         Review review = this.reviewMapper.toEntity(createReviewDto);
-        review.setUser(user);
+        review.setUser(currentUser);
         review.setBarberShop(barberShop);
+
         return this.reviewMapper.toDto(this.reviewRepository.save(review));
     }
 }
