@@ -11,5 +11,6 @@ import java.sql.Date;
 @NoArgsConstructor
 public class UpdateCourtDto {
     private Double price;
+    private Integer duration;
     private Date startDate;
 }

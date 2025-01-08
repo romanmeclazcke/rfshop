@@ -43,6 +43,7 @@ public class UpdateCourtUseCaseImpl implements UpdateCourtUseCase {
         }
 
         Optional.ofNullable(updateCourtDto.getPrice()).ifPresent(court::setPrice);
+        Optional.ofNullable(updateCourtDto.getDuration()).ifPresent(court::setDuration);
         Optional.ofNullable(updateCourtDto.getStartDate()).ifPresent(court::setStartDate);
 
         return this.courtMapper.toDto(this.courtRepository.save(court));
