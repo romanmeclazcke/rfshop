@@ -30,7 +30,7 @@ public class ControllerAdvice {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ErrorDto> handleRuntimeException(RuntimeException e) {
         return buildErrorResponse(
-                "An unexpected error occurred. Please contact support.",
+                e.getMessage(),
                 ErrorCodes.GENERIC_ERROR,
                 HttpStatus.INTERNAL_SERVER_ERROR
         );
