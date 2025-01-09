@@ -33,9 +33,9 @@ public class CourtController {
 //        return new ResponseEntity<>(this.getBarberShopByIdUseCase.execute(barberShopId), HttpStatus.OK);
 //    }
 
-    @PostMapping("") //check if barberId will be in path or Dto
-    public ResponseEntity<?> createCourt(@RequestBody @Valid CreateCourtDto createCourtDto) {
-        return new ResponseEntity<>(this.createCourtUseCase.execute(createCourtDto), HttpStatus.CREATED);
+    @PostMapping("/barber-shop/{barberShopId}") //check if barberId will be in path or Dto
+    public ResponseEntity<?> createCourt(@PathVariable Long barberShopId,@RequestBody @Valid CreateCourtDto createCourtDto) {
+        return new ResponseEntity<>(this.createCourtUseCase.execute(barberShopId,createCourtDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{courtId}")

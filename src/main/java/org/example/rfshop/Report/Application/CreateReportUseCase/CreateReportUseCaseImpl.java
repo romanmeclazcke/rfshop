@@ -55,7 +55,7 @@ public class CreateReportUseCaseImpl implements CreateReportUseCase{
         report.setReview(review);
         this.reportRepository.save(report);
 
-        CompletableFuture.runAsync(() -> { //run the method to send email in parallel (Reduced time to execution from 3.80s to 30ms)
+        CompletableFuture.runAsync(() -> { //TODO: run the method to send email in parallel (Reduced time to execution from 3.80s to 30ms)
             try {
                 this.sendEmailUseCase.execute(new EmailReport("romanmeclazcke1234@gmail.com", "Report", review));
             } catch (MessagingException e) {

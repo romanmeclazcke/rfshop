@@ -1,6 +1,7 @@
 package org.example.rfshop.Court.Infrastructure.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,10 @@ public class Court {
     @Column(nullable = false)
     private Double price;
 
+    @Column(nullable = false)
+    private Integer duration;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Column(nullable = false)
     private Date startDate;
 
