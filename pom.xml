@@ -124,9 +124,15 @@
             <artifactId>javax.mail</artifactId>
             <version>1.6.2</version>
         </dependency>
+
+        <!--Web Flux-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
     </dependencies>
-
-
 
     <build>
         <plugins>
