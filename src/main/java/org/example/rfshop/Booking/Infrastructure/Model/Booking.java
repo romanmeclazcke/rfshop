@@ -21,12 +21,19 @@ public class Booking {
 
     @Column(nullable = false)
     private LocalDateTime bookingStart;
-    @Column(nullable = false)
-    private Boolean state;
 
-    @ManyToOne
+    @Column(nullable = false)
+    private LocalDateTime bookingEnd;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean reserved=false;
+
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private Boolean state=false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private BarberShop barberShop;
 }
