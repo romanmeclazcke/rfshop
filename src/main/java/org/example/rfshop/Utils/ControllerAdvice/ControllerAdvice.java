@@ -5,10 +5,12 @@ import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.example.rfshop.BarberShop.Infrastructure.Exception.InvalidRole;
+import org.example.rfshop.Booking.Infrastructure.Exception.BookingAlreadyReserved;
 import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.FailToDeleteImage;
 import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.FailToUploadImage;
 import org.example.rfshop.Cloudinary.infrastructure.Config.Exception.PublicIdNotFound;
 import org.example.rfshop.FavoriteBarberShop.Infrastructure.Exception.BarberShopAlreadyAddedException;
+import org.example.rfshop.Post.Infrastructure.Exception.InvalidContent;
 import org.example.rfshop.User.Infrastructure.Exception.EmailAlreadyInUse;
 import org.example.rfshop.User.Infrastructure.Exception.RolNotFound;
 import org.example.rfshop.Utils.Dto.ErrorDto;
@@ -173,6 +175,23 @@ public class ControllerAdvice {
         );
     }
 
+    @ExceptionHandler(InvalidContent.class)
+    public ResponseEntity<ErrorDto> handleMessagingException(InvalidContent e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.INVALID_CONTENT,
+                HttpStatus.BAD_REQUEST
+        );
+    }
+
+    @ExceptionHandler(BookingAlreadyReserved.class)
+    public ResponseEntity<ErrorDto> handleMessagingException(BookingAlreadyReserved e) {
+        return buildErrorResponse(
+                e.getMessage(),
+                ErrorCodes.BAD_REQUEST_ERROR,
+                HttpStatus.BAD_REQUEST
+        );
+    }
 
     // Method to create A Error dto
     private ResponseEntity<ErrorDto> buildErrorResponse(String errorMessage, ErrorCodes errorCode, HttpStatus httpStatus) {
