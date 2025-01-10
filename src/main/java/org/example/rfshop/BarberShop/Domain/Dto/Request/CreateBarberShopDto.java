@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,5 +29,11 @@ public class CreateBarberShopDto {
 
     @NotNull(message = "The number of chairs cannot be null")
     private Integer chair;
+
+    private LocalTime startTimeFirstShift;
+    private LocalTime endTimeFirstShift;
+
+    private LocalTime startTimeSecondShift;
+    private LocalTime endTimeSecondShift;
 
 }

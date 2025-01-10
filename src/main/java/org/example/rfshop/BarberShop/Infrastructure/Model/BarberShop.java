@@ -8,6 +8,7 @@ import org.example.rfshop.Court.Infrastructure.Model.Court;
 import org.example.rfshop.Post.Infrastructure.Model.Post;
 import org.example.rfshop.User.Infrastructure.Model.User;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -37,6 +38,12 @@ public class BarberShop {
 
     @Column(nullable = false)
     private Integer chair; //number of available chairs
+
+    private LocalTime startTimeFirstShift; //TODO: check which one cloud be null
+    private LocalTime endTimeFirstShift;
+
+    private LocalTime startTimeSecondShift;
+    private LocalTime endTimeSecondShift;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
