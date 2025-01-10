@@ -16,6 +16,7 @@ import org.example.rfshop.Utils.Exception.DeniedAction;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,10 +48,14 @@ public class CreateBookingUseCaseImpl implements CreateBookingUseCase{
 
         List<Booking> bookings = createBookingDto.stream() //map all create booking dto in parallel
                                                     .parallel()
-                                                    .map(dto->{
-                                                        Booking booking = this.bookingMapper.toEntity(dto);
-                                                        booking.setBarberShop(barberShop);
-                                                        return booking;
+                                                    .flatMap(dto->{
+                                                        List<Booking> bookingToCreate= new ArrayList<>();
+                                                        for (int i = 0; i < dto.getNumbersOfBookingAtSameTime(); i++) { // I create the same bookings quantity
+                                                            Booking booking = this.bookingMapper.toEntity(dto);
+                                                            booking.setBarberShop(barberShop);
+                                                            bookingToCreate.add(booking);
+                                                        }
+                                                        return bookingToCreate.stream();
                                                     })
                                                     .toList();
 
