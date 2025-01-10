@@ -23,7 +23,6 @@ public class GetPostByIdUseCaseImpl implements  GetPostByIdUseCase{
 
     @Override
     public PostResponseDto execute(Long postId) {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return this.postRepository.findById(postId)
                 .map(this.postMapper::toDto)
                 .orElseThrow(() -> new EntityNotFoundException("Post with id " + postId + " not found"));

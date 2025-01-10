@@ -44,9 +44,11 @@ public class ReserveBookingUseCaseImpl implements ReserveBookingUseCase{
             throw  new BookingAlreadyReserved("Booking already reserved");
         }
 
+
         bookingToReserve.setReserved(true);
         bookingToReserve.setUser(currentUser);
         Booking bookingReserved = this.bookingRepository.save(bookingToReserve);
+
 
         CompletableFuture.runAsync(()->{
             try {

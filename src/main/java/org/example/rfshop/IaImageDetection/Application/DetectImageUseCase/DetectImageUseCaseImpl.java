@@ -41,7 +41,6 @@ public class DetectImageUseCaseImpl implements DetectImageUseCase {
                 .bodyToMono(Map.class)
                 .block();
 
-        System.out.println(result);
 
         return checkProbabilities(result);
     }
