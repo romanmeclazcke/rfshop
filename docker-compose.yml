@@ -1,31 +1,50 @@
+version: '3.8'
+
 services:
   rfshop:
     build: .
+    container_name: rfshop
     ports:
       - "8080:8080"
-    env_file:
-      - .env
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_URL=jdbc:postgresql://db_rfshop:5432/${DB_NAME:-rfshop}
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-rfshop}
+    volumes:
+      - ./logs:/app/logs
     depends_on:
       db_rfshop:
         condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - rfshop-network
 
   db_rfshop:
-    container_name: db_rfshop
     image: postgres:17
-    ports:
-      - "5432:5432"
+    container_name: db_rfshop
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-rfshop}
     volumes:
       - db_rfshop_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-rfshop}"]
       interval: 10s
+      timeout: 5s
       retries: 5
       start_period: 30s
-      timeout: 10s
+    ports:
+      - "5432:5432"
+    networks:
+      - rfshop-network
+    restart: unless-stopped
+
+networks:
+  rfshop-network:
+    driver: bridge
 
 volumes:
   db_rfshop_data:

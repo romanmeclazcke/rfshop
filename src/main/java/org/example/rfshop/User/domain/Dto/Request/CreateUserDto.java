@@ -2,12 +2,14 @@ package org.example.rfshop.User.domain.Dto.Request;
 
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CreateUserDto {
 
     @Email(message = "The email should be valid")

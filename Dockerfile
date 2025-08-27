@@ -1,5 +1,20 @@
-FROM openjdk:21-jdk-slim
-ARG JAR_FILE=target/RFSHOP-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} RFSHOP.jar
+# Etapa de construcción
+FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# Etapa de ejecución
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/target/RFSHOP-0.0.1-SNAPSHOT.jar app.jar
+
+# Crear directorio para logs
+RUN mkdir -p /app/logs
+
+# Puerto expuesto
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "RFSHOP.jar"]
+
+# Comando de arranque
+ENTRYPOINT ["java", "-jar", "app.jar"]
